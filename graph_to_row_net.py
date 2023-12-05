@@ -28,10 +28,10 @@ with open(args.input) as f, open(args.hypergraph, "w") as out:
         if index < n_nodes:
             index += 1
             splitted = line.strip().split(" ")
-            assert splitted[0] != '', f"invalid hyperedge {index}"
             neighborhood = [index]
-            neighborhood.extend(map(int, splitted))
-            neighborhood.sort()
+            if splitted[0] != '':
+                neighborhood.extend(map(int, splitted))
+                neighborhood.sort()
             out.write(f"{' '.join(map(str, neighborhood))}\n")
         else:
             assert line.strip() == "", f"unexpected line {index + 1}"
